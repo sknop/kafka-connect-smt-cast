@@ -372,7 +372,7 @@ public abstract class Cast<R extends ConnectRecord<R>> implements Transformation
         else if (value instanceof ByteBuffer) {
             ByteBuffer byteBuffer = (ByteBuffer) value;
 
-            StringBuffer sbuf = new StringBuffer();
+            StringBuilder sbuf = new StringBuilder();
             for (byte b : byteBuffer.array()) {
                 sbuf.append(String.format("%02X", b));
             }
