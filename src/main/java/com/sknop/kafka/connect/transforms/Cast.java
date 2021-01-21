@@ -372,15 +372,22 @@ public abstract class Cast<R extends ConnectRecord<R>> implements Transformation
         else if (value instanceof ByteBuffer) {
             ByteBuffer byteBuffer = (ByteBuffer) value;
 
-            StringBuilder sbuf = new StringBuilder();
-            for (byte b : byteBuffer.array()) {
-                sbuf.append(String.format("%02X", b));
-            }
-            return sbuf.toString();
+            return castByteArrayToString(byteBuffer.array());
+        }
+        else if (value.getClass() == byte[].class) {
+            return castByteArrayToString((byte[]) value);
         }
         else {
             return value.toString();
         }
+    }
+
+    private static String castByteArrayToString(byte[] array) {
+        StringBuilder sbuf = new StringBuilder();
+        for (byte b : array) {
+            sbuf.append(String.format("%02X", b));
+        }
+        return sbuf.toString();
     }
 
     protected abstract Schema operatingSchema(R record);
